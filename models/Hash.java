@@ -1,14 +1,24 @@
 package models;
 
-public class Hash<T> {
-    private T[] data;
+public class Hash {
+    private int[] data;
 
-    @SuppressWarnings("unchecked")
     public Hash(int size) {
-        this.data[size] = (T) new Object();
+        this.data = new int[size];
     }
 
-    public void inserir(T chave) {
-        
+    public void inserir(int chave) {
+        data[buscar(chave)] = chave;
+    }
+
+    public int buscar(int chave) {
+        if (!(data[chave % data.length] > -1))
+            throw new IllegalArgumentException("Valor não encontrado!");
+        return chave;
+    }
+
+    public int remover(int chave) {
+        data[buscar(chave)] = 0;
+        return chave;
     }
 }
